@@ -1,0 +1,15 @@
+language: bash
+
+services:
+  - docker
+
+script: "./dockerTest.sh"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: <encrypted-api-key>
+  file: buid/bin/licence-compliance-checker
+  on:
+    repo: sky-uk/licence-compliance-checker
+    tags: true

@@ -1,0 +1,11 @@
+vendor/
+.idea
+*.iml
+*.ipr
+*.iws
+.gradle
+build
+*.swp
+out
+*.xml
+

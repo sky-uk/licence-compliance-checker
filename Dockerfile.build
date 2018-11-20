@@ -1,0 +1,7 @@
+FROM golang:1.9.4
+
+RUN mkdir -p /go/src/github.com/sky-uk/licence-compliance-checker
+WORKDIR /go/src/github.com/sky-uk/licence-compliance-checker
+COPY . .
+
+RUN make setup install
