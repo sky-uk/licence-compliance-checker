@@ -25,6 +25,10 @@
 #   unused-packages = true
 
 [[constraint]]
+  name = "github.com/sebbonnet/go-license-detector"
+  revision = "2737d215415a11bb7b52e7bc4c52c10430f099c9"
+
+[[constraint]]
   name = "github.com/sirupsen/logrus"
   version = "1.0.5"
 

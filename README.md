@@ -103,3 +103,7 @@ To build and run all tests:
 ## Releasing
 
 Tag the commit in master and push it to release it. Only maintainers can do this.
+
+## Contributions
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
