@@ -24,7 +24,11 @@ fmt:
 check: fmt vet lint test licencecheck
 
 licencecheck:
-	$(BUILD_DIR)/bin/licence-compliance-checker -r GPL -r LGPL -r AGPL -E ./vendor/github.com/*/* ./vendor/golang.org/*/* ./vendor/gopkg.in/*
+	@echo "== licencecheck"
+	set -e ;\
+ 	restricted=$$(paste -s -d ',' restricted-licences.txt) ;\
+ 	projects=$$(dep status -f='vendor/{{ .ProjectRoot }} ') ;\
+ 	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted $$projects ;
 
 vet:
 	go vet $(pkgs)
