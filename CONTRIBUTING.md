@@ -2,19 +2,41 @@
 
 Contributions are welcomed!
 
-When contributing to this repository, please first discuss the change you wish to make via GitHub
+When contributing to this repository, please first discuss the change you wish to make via a GitHub
 issue before making a change.  This saves everyone from wasted effort in the event that the proposed
 changes need some adjustment before they are ready for submission.
+
+## Building and Testing
+
+To setup your environment with the required dependencies:
+```
+./make setup
+```
+
+To build and run all tests:
+```
+./make install
+```
 
 ## Pull Request Process
 
 1. If your changes include multiple commits, please squash them into a single commit.  Stack Overflow
    and various blogs can help with this process if you're not already familiar with it.
-2. Make sure to commit changes to vendor, ideally as a separate commit to any other code change.
-3. Update the README.md where relevant.
-4. Update the CHANGELOG.md with details of the change and referencing the issue you worked on.
-5. You may merge the Pull Request in once you have the sign-off, or if you do not have permission to
-   do that, you may request the reviewer to merge it for you. 
+2. Update the README.md where relevant.
+3. Update the CHANGELOG.md with details of the change and referencing the issue you worked on.
+4. When submitting your pull request, please provide a comment which describes the change and the problem
+   it is intended to resolve. If your pull request is fixing something for which there is a related GitHub issue,
+   make reference to that issue with the text "Closes #<issue-number>" in the pull request description.
+5. You may merge the pull request to master once a reviewer has approved it. If you do not have permission to
+   do that, you may request the reviewer to merge it for you.
+
+## Releasing
+
+Once a pull request has been merged, the commit in master should be tagged with a new version number and pushed.
+Only maintainers are able to do this.
+
+This project follows the [Semantic Versioning](https://semver.org/) specification, and version numbers
+should be chosen accordingly.
 
 ## Contributor Code of Conduct
 
