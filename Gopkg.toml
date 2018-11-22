@@ -28,6 +28,13 @@
   name = "github.com/sebbonnet/go-license-detector"
   revision = "2737d215415a11bb7b52e7bc4c52c10430f099c9"
 
+[[override]]
+  name = "gopkg.in/src-d/go-git.v4"
+  # at least 4.1.0 which is the version used by go-licence-detector 
+  # but up to 4.7.1 which is not backwark compatible (undocumented)
+  # and results in compilation issues
+  version = ">= 4.1.0, < 4.7.1"
+
 [[constraint]]
   name = "github.com/sirupsen/logrus"
   version = "1.0.5"
@@ -51,3 +58,4 @@
 [prune]
   go-tests = true
   #unused-packages = true
+
