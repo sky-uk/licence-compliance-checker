@@ -21,7 +21,10 @@ build: ensure-build-dir-exists
 fmt:
 	go fmt ./...
 
-check: fmt vet lint test
+check: fmt vet lint test licencecheck
+
+licencecheck:
+	$(BUILD_DIR)/bin/licence-compliance-checker -r GPL -r LGPL -r AGPL -E ./vendor/github.com/*/* ./vendor/golang.org/*/* ./vendor/gopkg.in/*
 
 vet:
 	go vet $(pkgs)
@@ -41,7 +44,7 @@ test: ensure-test-report-dir-exists
 	@echo "== test"
 	ginkgo -r --v --progress pkg cmd test/e2e -- -junit-report-dir $(junit_report_dir)
 
-install: build
+install: build check
 	@echo "== install"
 	cp -v $(BUILD_DIR)/bin/licence-compliance-checker $(shell go env GOPATH)/bin/licence-compliance-checker
 

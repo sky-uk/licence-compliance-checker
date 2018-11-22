@@ -4,13 +4,21 @@ Command line application to validate that project dependencies comply with licen
 This works by identifying project licences using the reliable [go-license-detector](https://github.com/src-d/go-license-detector),
 then validating that the most pertinent licences (those with highest confidence level) do not match any of the restricted licences specified as arguments. 
 The list of restricted licences are passed as arguments to allow projects to have different restriction policies.
-Optional filters can be used to ignore some projects and/or override the licence detected for a project.   
+Optional filters can be used to ignore some projects and/or override the licence detected for a project.  
+
+The checker is intended for use in continuous integration pipelines, to help ensure that projects are complying with
+licence restrictions on an ongoing basis.
 
 ## Usage
 
 ```
 licence-compliance-checker -r LGPL -r GPL -r AGPL -o vendor/github.com/spf13/cobra=MIT vendor/github.com/spf13/cobra vendor/golang.org/x/crypto
 ```
+
+Exit code | Meaning
+----------|--------
+0 | No restricted licenses found
+1 | Restricted licenses found
 
 Input argument | Meaning 
 ---------|---------
@@ -89,7 +97,7 @@ To setup the environment with the required dependencies:
 To build and run all tests:
 
 ```
-./make install check
+./make install
 ```
 
 ## Releasing

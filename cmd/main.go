@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/sky-uk/licence-compliance-checker/pkg/compliance"
 	"github.com/sky-uk/licence-compliance-checker/pkg/detection"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
