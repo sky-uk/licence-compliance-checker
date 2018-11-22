@@ -31,7 +31,7 @@
 [[override]]
   name = "gopkg.in/src-d/go-git.v4"
   # at least 4.1.0 which is the version used by go-licence-detector 
-  # but up to 4.7.1 which is not backwark compatible (undocumented)
+  # but up to 4.7.1 which is not backward compatible (undocumented)
   # and results in compilation issues
   version = ">= 4.1.0, < 4.7.1"
 
