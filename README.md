@@ -9,6 +9,14 @@ Optional filters can be used to ignore some projects and/or override the licence
 The checker is intended for use in continuous integration pipelines, to help ensure that projects are complying with
 licence restrictions on an ongoing basis.
 
+## Installing
+
+If you already have Go installed, the easiest way of installing is with `go get`:
+
+```
+go get github.com/sky-uk/licence-compliance-checker
+```
+
 ## Usage
 
 ```
@@ -90,22 +98,13 @@ Example of JSON output
 
 ```
 
+# Questions or Problems?
 
-## Development
-
-To setup the environment with the required dependencies:
-```
-./make setup
-```
-To build and run all tests:
-
-```
-./make install
-```
-
-## Releasing
-
-Tag the commit in master and push it to release it. Only maintainers can do this.
+- If you have a general question about this project, please create an issue for it. The issue title should be the
+  question itself, with any follow-up information in a comment. Add the "question" tag to the issue.
+  
+- If you think you have found a bug in this project, please create an issue for it. Use the issue title to summarise
+  the problems, and supply full steps to reproduce in a comment. Add the "bug" tag to the issue.
 
 ## Contributions
 
