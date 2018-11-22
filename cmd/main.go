@@ -53,7 +53,7 @@ func validateCompliance(_ *cobra.Command, args []string) {
 	}
 
 	log.Infof("Validating licence compliance with config: %v", config)
-	c := compliance.New(&config, &detection.GoLicenseDetector{})
+	c := compliance.New(&config, detection.NewLicenceDetector())
 	result, err := c.Validate(args)
 	if err != nil {
 		logAndExit("Error validating licence compliance: %v", err)
@@ -64,7 +64,7 @@ func validateCompliance(_ *cobra.Command, args []string) {
 		if showComplianceErrors || showComplianceAll {
 			printAsJSON(result)
 		}
-		logAndExit("Some licences are not compliant or cannot be identified: %v", result)
+		logAndExit("Some licences are not compliant and/or cannot be identified: restricted: %v, unidentifiable: %v", result.Restricted, result.Unidentifiable)
 	}
 
 	if showComplianceAll {
@@ -95,6 +95,6 @@ func setLogLevel(logLevel string) {
 }
 
 func logAndExit(message string, args ...interface{}) {
-	log.Errorf(message, args)
+	log.Errorf(message, args...)
 	os.Exit(1)
 }

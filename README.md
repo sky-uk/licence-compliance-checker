@@ -15,6 +15,9 @@ licence restrictions on an ongoing basis.
 licence-compliance-checker -r LGPL -r GPL -r AGPL -o vendor/github.com/spf13/cobra=MIT vendor/github.com/spf13/cobra vendor/golang.org/x/crypto
 ```
 
+See the `licencecheck` target in the [Makefile](Makefile) for an example of how to use with dependencies managed by `go dep`
+
+
 Exit code | Meaning
 ----------|--------
 0 | No restricted licenses found
@@ -103,3 +106,7 @@ To build and run all tests:
 ## Releasing
 
 Tag the commit in master and push it to release it. Only maintainers can do this.
+
+## Contributions
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)

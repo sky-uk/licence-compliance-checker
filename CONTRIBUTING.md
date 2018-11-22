@@ -12,8 +12,9 @@ changes need some adjustment before they are ready for submission.
    and various blogs can help with this process if you're not already familiar with it.
 2. Make sure to commit changes to vendor, ideally as a separate commit to any other code change.
 3. Update the README.md where relevant.
-4. You may merge the Pull Request in once you have the sign-off, or if you do not have permission to
-   do that, you may request the reviewer to merge it for you.
+4. Update the CHANGELOG.md with details of the change and referencing the issue you worked on.
+5. You may merge the Pull Request in once you have the sign-off, or if you do not have permission to
+   do that, you may request the reviewer to merge it for you. 
 
 ## Contributor Code of Conduct
 
