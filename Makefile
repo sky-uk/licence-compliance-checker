@@ -21,7 +21,14 @@ build: ensure-build-dir-exists
 fmt:
 	go fmt ./...
 
-check: fmt vet lint test
+check: fmt vet lint test licencecheck
+
+licencecheck:
+	@echo "== licencecheck"
+	set -e ;\
+ 	restricted=$$(paste -s -d ',' restricted-licences.txt) ;\
+ 	projects=$$(dep status -f='vendor/{{ .ProjectRoot }} ') ;\
+ 	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted $$projects ;
 
 vet:
 	go vet $(pkgs)
@@ -41,7 +48,7 @@ test: ensure-test-report-dir-exists
 	@echo "== test"
 	ginkgo -r --v --progress pkg cmd test/e2e -- -junit-report-dir $(junit_report_dir)
 
-install: build
+install: build check
 	@echo "== install"
 	cp -v $(BUILD_DIR)/bin/licence-compliance-checker $(shell go env GOPATH)/bin/licence-compliance-checker
 

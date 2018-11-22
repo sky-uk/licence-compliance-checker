@@ -26,7 +26,7 @@ func TestCommandLine(t *testing.T) {
 var _ = Describe("licence-compliance-checker command line", func() {
 	Describe("--help", func() {
 		It("should print available flags", func() {
-			output, err := exec.Command("licence-compliance-checker", "--help").CombinedOutput()
+			output, err := exec.Command("../build/bin/licence-compliance-checker", "--help").CombinedOutput()
 			Expect(err).ToNot(HaveOccurred())
 			Expect(string(output)).To(ContainSubstring("-h, --help"))
 			Expect(string(output)).To(ContainSubstring("-o, --override-licence"))

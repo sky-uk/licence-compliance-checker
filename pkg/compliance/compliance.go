@@ -1,8 +1,8 @@
 package compliance
 
 import (
-	"github.com/sky-uk/licence-compliance-checker/pkg/detection"
 	log "github.com/sirupsen/logrus"
+	"github.com/sky-uk/licence-compliance-checker/pkg/detection"
 	"sort"
 )
 
