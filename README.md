@@ -98,7 +98,7 @@ Example of JSON output
 
 ```
 
-# Questions or Problems?
+## Questions or Problems?
 
 - If you have a general question about this project, please create an issue for it. The issue title should be the
   question itself, with any follow-up information in a comment. Add the "question" tag to the issue.
