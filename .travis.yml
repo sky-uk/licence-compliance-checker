@@ -1,9 +1,10 @@
-language: bash
+language: go
 
-services:
-  - docker
+go:
+  - 1.9.x
+  - 1.11.x
 
-script: "./dockerTest.sh"
+script: make travis
 
 deploy:
   provider: releases
