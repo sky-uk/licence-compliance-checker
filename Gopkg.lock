@@ -185,7 +185,7 @@
   name = "github.com/sebbonnet/go-license-detector"
   packages = ["detection"]
   pruneopts = "T"
-  revision = "2737d215415a11bb7b52e7bc4c52c10430f099c9"
+  revision = "6c2c3f17a67034aa671b364fa77ce551bf0707d8"
 
 [[projects]]
   digest = "1:c85dd9a95433394aa8ec4949b5de91398c3e3895db5a341fa27f9e7b251a8cb9"
@@ -258,7 +258,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0550efca924537365fba757950ae7b6ec8c11f018b5c2d6a189ac9a2af0f1ba7"
+  digest = "1:a0097f60e459fbf5512fcc7aa8bf7df60471624dc7956c68e7eb7f8db3706aa7"
   name = "golang.org/x/crypto"
   packages = [
     "cast5",
@@ -280,15 +280,15 @@
     "ssh/terminal",
   ]
   pruneopts = "T"
-  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
+  revision = "eb0de9b17e854e9b1ccd9963efafc79862359959"
 
 [[projects]]
   branch = "master"
-  digest = "1:33aac00c7200dfe267546e508fb3db9c0980f1f92786b30202e91b036bb27df8"
+  digest = "1:fdd67352c6a68dc3de270cf9da44f05644d5b17b3bffbdf654df5e61c24e5595"
   name = "golang.org/x/exp"
   packages = ["rand"]
   pruneopts = "T"
-  revision = "a3060d491354240eda536d676ced8bb702018b7e"
+  revision = "2bc4fd139c1b1e9b6f5e20ba99021c2ac0c29ec3"
 
 [[projects]]
   branch = "master"
@@ -305,14 +305,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:aa255b0a0a884e6927587009224910e4758ae91510c03a6bb06bceacc9868c69"
+  digest = "1:a41815681b9cb9d91eb5bd22009d99af713567bb20f14b2ff13765d8fd8de808"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "T"
-  revision = "0cf1ed9e522b7dbb416f080a5c8003de9b702bf4"
+  revision = "4ed8d59d0b35e1e29334a206d1b3f38b1e5dfb31"
 
 [[projects]]
   digest = "1:6164911cb5e94e8d8d5131d646613ff82c14f5a8ce869de2f6d80d9889df8c5a"
@@ -345,7 +345,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3464c79f7ce50fbf4a6c860aa704f300e5b336d242da81217ca22f053c29bae3"
+  digest = "1:29677c2a2ea4459edbfe234691b8d39f0ae98d78d111a8fc16cb17b9d92db222"
   name = "gonum.org/v1/gonum"
   packages = [
     "blas",
@@ -368,7 +368,7 @@
     "stat/distuv",
   ]
   pruneopts = "T"
-  revision = "17a33f2c20a6b29fa8e2ca1188b5d7e4db1dfa13"
+  revision = "4a8f3189056394031e19a5377687db27ef7f10b4"
 
 [[projects]]
   digest = "1:7fc160b460a6fc506b37fcca68332464c3f2cd57b6e3f111f26c5bbfd2d5518e"

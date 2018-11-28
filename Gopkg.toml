@@ -26,7 +26,7 @@
 
 [[constraint]]
   name = "github.com/sebbonnet/go-license-detector"
-  revision = "2737d215415a11bb7b52e7bc4c52c10430f099c9"
+  revision = "6c2c3f17a67034aa671b364fa77ce551bf0707d8"
 
 [[override]]
   name = "gopkg.in/src-d/go-git.v4"
