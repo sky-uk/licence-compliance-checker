@@ -31,9 +31,11 @@ licencecheck:
  	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted $$projects ;
 
 vet:
+	@echo "== vet"
 	go vet $(pkgs)
 
 lint:
+	@echo "== lint"
 	for pkg in $(pkgs); do \
 		golint -set_exit_status $$pkg || exit 1; \
 	done;
@@ -53,4 +55,7 @@ install: build check
 	cp -v $(BUILD_DIR)/bin/licence-compliance-checker $(shell go env GOPATH)/bin/licence-compliance-checker
 
 clean:
+	@echo "== clean"
 	rm -rfv $(BUILD_DIR)
+
+travis: clean setup install
