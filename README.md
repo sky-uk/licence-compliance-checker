@@ -14,7 +14,7 @@ licence restrictions on an ongoing basis.
 If you already have Go installed, the easiest way of installing is with `go get`:
 
 ```
-go get github.com/sky-uk/licence-compliance-checker
+go get github.com/sky-uk/licence-compliance-checker/...
 ```
 
 ## Usage
