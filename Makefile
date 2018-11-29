@@ -15,7 +15,7 @@ setup :
 
 build: ensure-build-dir-exists
 	@echo "== build"
-	go build -o $(BUILD_DIR)/bin/licence-compliance-checker -v github.com/sky-uk/licence-compliance-checker/cmd
+	go build -o $(BUILD_DIR)/bin/licence-compliance-checker -v github.com/sky-uk/licence-compliance-checker
 	go test -run xxxxx $(pkgs)  # build the test code but don't run any tests yet
 
 fmt:
@@ -48,7 +48,7 @@ ensure-test-report-dir-exists: ensure-build-dir-exists
 
 test: ensure-test-report-dir-exists
 	@echo "== test"
-	ginkgo -r --v --progress pkg cmd test/e2e -- -junit-report-dir $(junit_report_dir)
+	ginkgo -r --v --progress . pkg test/e2e -- -junit-report-dir $(junit_report_dir)
 
 install: build check
 	@echo "== install"
