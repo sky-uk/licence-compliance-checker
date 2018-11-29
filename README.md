@@ -17,6 +17,8 @@ If you already have Go installed, the easiest way of installing is with `go get`
 go get github.com/sky-uk/licence-compliance-checker/...
 ```
 
+Source and built assets for each released version are also available from [Releases](https://github.com/sky-uk/licence-compliance-checker/releases).
+
 ## Usage
 
 ```
