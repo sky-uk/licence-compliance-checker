@@ -5,12 +5,3 @@ go:
   - 1.11.x
 
 script: make travis
-
-deploy:
-  provider: releases
-  api_key:
-    secure: qb3e9xZrnU5NdyTOZO4LewMfvUZH7gn5hNbAJ+l7ifzlE5IUsDz3+kdVzwzPrvWjyJvd/6/wmOHZBSCBtfHL40arjift1oMmRet8eNqz/MWUpWPVbolgiulTMLQWRwDn5aVMxT7Kf4SMeVM9TwMjuRhWeD+cQ2YWE/Sgy0t5bHVzZ5wBATZ+gmXQBXZJrzPvelQuagXenOkJ7waMLIhd7oRjH19yatONrEpaTIw6TVcokCn7tEJIoTdx96tJ+GA1I3l7nTH140qSXiPmoZ3uir/+JCL+eKT7ij53TT6Rk3Ja0kspkUO6jv2MCp+hYFZ3tqDFoAp8R8ffK9ZlEl4Db6e86PM/U5TLNKET+TT+yd9qsrJ3e7gbKsB9SO5Yw9iqg2q8PmOEJ+wRecB1ViTyM0P5vL02gGnoYDoXR9+mO7xMMftnQMPnuqTatnZbKwpSLw1w1vTddNIsEOJpGJeCoAsBx9zIuuTxiGa30Ic+botsvMJrtQq2ahe+s/HMjbHfRCzer2WAhGe3ZaBKBOB7KStLavNmn4/q2Ta6KAQrVPJMNriv2FW40uGWkvWQDWQZ67zqJLBhjzhi/uFfBG12Hx8aQCqCdgtPkubBUpZ3+MWDKMuUPnMj9z/o+rNizs+uUTQrnafLpx3tMUugoXDHASxoFkMxXhxVTdIxDhGx8R4=
-  file: buid/bin/licence-compliance-checker
-  on:
-    repo: sky-uk/licence-compliance-checker
-    tags: true
