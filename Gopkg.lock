@@ -181,13 +181,6 @@
   version = "v0.8.0"
 
 [[projects]]
-  digest = "1:6e6f5bcddac4b8730ec32c4a8abb134700e85cea23d2ea6496743121f17e3faa"
-  name = "github.com/sebbonnet/go-license-detector"
-  packages = ["detection"]
-  pruneopts = "T"
-  revision = "6c2c3f17a67034aa671b364fa77ce551bf0707d8"
-
-[[projects]]
   digest = "1:c85dd9a95433394aa8ec4949b5de91398c3e3895db5a341fa27f9e7b251a8cb9"
   name = "github.com/sergi/go-diff"
   packages = ["diffmatchpatch"]
@@ -472,7 +465,7 @@
   version = "v4.7.0"
 
 [[projects]]
-  digest = "1:9baea1fa01e024150e1556dd349d7db0b2fa57e0b9f783a968b25ae2f2058265"
+  digest = "1:12d6daa5052229083a94c61cbe5d3a47048be4ee75b90d7d182b6e8645e4b7b1"
   name = "gopkg.in/src-d/go-license-detector.v2"
   packages = [
     "licensedb",
@@ -485,8 +478,7 @@
     "licensedb/internal/wmh",
   ]
   pruneopts = "T"
-  revision = "da552ecf050b6440cf8bd0218a8c336213abeefa"
-  version = "v2"
+  revision = "1744b25799df68fa1768978f91236ba5dddcc61e"
 
 [[projects]]
   digest = "1:b5f51303bce8c2ca2cc3465c64022a9fa472efa542c66d497cc9131c859d723e"
@@ -528,9 +520,9 @@
     "github.com/onsi/ginkgo/reporters",
     "github.com/onsi/gomega",
     "github.com/onsi/gomega/types",
-    "github.com/sebbonnet/go-license-detector/detection",
     "github.com/sirupsen/logrus",
     "github.com/spf13/cobra",
+    "gopkg.in/src-d/go-license-detector.v2/licensedb",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

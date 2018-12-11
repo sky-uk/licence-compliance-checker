@@ -1,8 +1,8 @@
 package detection
 
 import (
-	golicensedetection "github.com/sebbonnet/go-license-detector/detection"
 	log "github.com/sirupsen/logrus"
+	golicensedetection "gopkg.in/src-d/go-license-detector.v2/licensedb"
 )
 
 // goLicenseDetector is an implementation of LicenceDetector that uses `go-license-detector` to identify licences
@@ -13,7 +13,7 @@ type goLicenseDetector struct {
 func (d *goLicenseDetector) Detect(paths []string) ([]Result, error) {
 	var results []Result
 
-	gldResults := golicensedetection.Detect(paths...)
+	gldResults := golicensedetection.Analyse(paths...)
 	log.Debugf("Licence detection raw results from go-license-detector: %v", gldResults)
 	for _, gldResult := range gldResults {
 		results = append(results, buildResultFrom(gldResult))
@@ -29,7 +29,7 @@ func buildResultFrom(gldResult golicensedetection.Result) Result {
 		ErrStr:  gldResult.ErrStr,
 	}
 
-	if gldResult.Err == nil {
+	if gldResult.ErrStr == "" {
 		result.Matches = buildLicenceMatchesFrom(gldResult.Matches)
 	}
 	return result
