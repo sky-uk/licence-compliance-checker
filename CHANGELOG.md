@@ -1,6 +1,6 @@
 # Changes
 
-## 0.1.4
+## 1.0.0
 - [Use go-license-detector upstream repo rather than fork](https://github.com/sky-uk/licence-compliance-checker/pull/16)
 
 ## 0.1.3
