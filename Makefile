@@ -11,7 +11,7 @@ setup :
 	@echo "== setup"
 	go get -v golang.org/x/lint/golint golang.org/x/tools/cmd/goimports github.com/golang/dep/cmd/dep
 	go get -v github.com/onsi/ginkgo/ginkgo && cd $$GOPATH/src/github.com/onsi/ginkgo && git checkout 'v1.6.0' && go install github.com/onsi/ginkgo/ginkgo
-	dep ensure -v
+	dep ensure -v -vendor-only
 
 build: ensure-build-dir-exists
 	@echo "== build"
