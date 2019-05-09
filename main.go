@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
+	"os/exec"
+	"strings"
 )
 
 var rootCmd = &cobra.Command{
@@ -19,12 +21,13 @@ var rootCmd = &cobra.Command{
 }
 
 var (
-	overriddenLicences   map[string]string
-	ignoredProjects      []string
-	restrictedLicences   []string
-	logLevel             string
-	showComplianceErrors bool
-	showComplianceAll    bool
+	overriddenLicences       map[string]string
+	overriddenModuleLicences map[string]string
+	ignoredProjects          []string
+	restrictedLicences       []string
+	logLevel                 string
+	showComplianceErrors     bool
+	showComplianceAll        bool
 )
 
 func main() {
@@ -35,7 +38,8 @@ func main() {
 
 func init() {
 	rootCmd.PersistentFlags().StringSliceVarP(&ignoredProjects, "ignore-project", "i", []string{}, "project which licence will not be checked for compliance. Repeat this flag to specify multiple values.")
-	rootCmd.PersistentFlags().StringToStringVarP(&overriddenLicences, "override-licence", "o", map[string]string{}, "can be used to override the licence detected for a project - e.g. github.com/spf13/cobra=MIT. Repeat this flag to specify multiple values.")
+	rootCmd.PersistentFlags().StringToStringVarP(&overriddenLicences, "override-licence", "o", map[string]string{}, "can be used to override the licence detected for a project directory - e.g. vendor/github.com/spf13/cobra=MIT. Repeat this flag to specify multiple values.")
+	rootCmd.PersistentFlags().StringToStringVarP(&overriddenModuleLicences, "override-module-licence", "m", map[string]string{}, "can be used to override the licence detected for a go module - e.g. github.com/spf13/cobra=MIT. Repeat this flag to specify multiple values.")
 	rootCmd.PersistentFlags().StringSliceVarP(&restrictedLicences, "restricted-licence", "r", []string{}, "licence that will fail the compliance check if found for a project. Repeat this flag to specify multiple values.")
 	rootCmd.PersistentFlags().StringVarP(&logLevel, "log-level", "L", "", "(output) should be one of: (none), debug, info, warn, error, fatal, panic. default (none)")
 	rootCmd.PersistentFlags().BoolVarP(&showComplianceAll, "show-compliance-all", "A", false, "(output) to show compliance checks as JSON regardless of outcome")
@@ -45,6 +49,17 @@ func init() {
 
 func validateCompliance(_ *cobra.Command, args []string) {
 	setLogLevel(logLevel)
+
+	for module, licence := range overriddenModuleLicences {
+		cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", module)
+
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			logAndExit("Failed to list go module %s: output: %s, error: %s", module, out, err)
+		}
+		pkgDir := strings.Trim(strings.TrimSpace(string(out)), "\"")
+		overriddenLicences[pkgDir] = licence
+	}
 
 	config := compliance.Config{
 		RestrictedLicences:        restrictedLicences,
