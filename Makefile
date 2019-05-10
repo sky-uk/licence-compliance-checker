@@ -12,6 +12,7 @@ setup :
 	go get -v golang.org/x/lint/golint golang.org/x/tools/cmd/goimports github.com/golang/dep/cmd/dep
 	go get -v github.com/onsi/ginkgo/ginkgo && cd $$GOPATH/src/github.com/onsi/ginkgo && git checkout 'v1.6.0' && go install github.com/onsi/ginkgo/ginkgo
 	dep ensure -v -vendor-only
+	cd test/e2e/testdata/go-module && GO111MODULE=on go build
 
 build: ensure-build-dir-exists
 	@echo "== build"
@@ -28,7 +29,7 @@ licencecheck:
 	set -e ;\
  	restricted=$$(paste -s -d ',' restricted-licences.txt) ;\
  	projects=$$(dep status -f='vendor/{{ .ProjectRoot }} ') ;\
- 	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted $$projects ;
+ 	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted -m github.com/spf13/cobra=MIT $$projects ;
 
 vet:
 	@echo "== vet"
