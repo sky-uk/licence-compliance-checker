@@ -17,7 +17,6 @@ var rootCmd = &cobra.Command{
 	Use:   "licence-compliance-checker",
 	Short: "Check licences compliance based on list of restricted licences",
 	Run:   validateCompliance,
-	Args:  cobra.MinimumNArgs(1),
 }
 
 var (
@@ -28,6 +27,7 @@ var (
 	logLevel                 string
 	showComplianceErrors     bool
 	showComplianceAll        bool
+	checkGoModules           bool
 )
 
 func main() {
@@ -44,6 +44,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&logLevel, "log-level", "L", "", "(output) should be one of: (none), debug, info, warn, error, fatal, panic. default (none)")
 	rootCmd.PersistentFlags().BoolVarP(&showComplianceAll, "show-compliance-all", "A", false, "(output) to show compliance checks as JSON regardless of outcome")
 	rootCmd.PersistentFlags().BoolVarP(&showComplianceErrors, "show-compliance-errors", "E", false, "(output) to show compliance checks as JSON only in case of errors")
+	rootCmd.PersistentFlags().BoolVarP(&checkGoModules, "check-go-modules", "", false, "check all go modules a project depends on")
 	rootCmd.MarkPersistentFlagRequired("restricted-licence")
 }
 
@@ -67,6 +68,22 @@ func validateCompliance(_ *cobra.Command, args []string) {
 		OverriddenProjectLicences: overriddenLicences,
 	}
 
+	if checkGoModules {
+		if len(args) > 0 {
+			logAndExit("--check-go-modules and positional args cannot be set at the same time (received %d)", len(args))
+		}
+
+		var err error
+		args, err = getGoModules()
+		if err != nil {
+			logAndExit("Failed to list go modules: %s", err)
+		}
+	} else {
+		if len(args) == 0 {
+			logAndExit("requires at least 1 arg (received %d)", len(args))
+		}
+	}
+
 	log.Infof("Validating licence compliance with config: %v", config)
 	c := compliance.New(&config, detection.NewLicenceDetector())
 	result, err := c.Validate(args)
@@ -87,6 +104,25 @@ func validateCompliance(_ *cobra.Command, args []string) {
 	}
 
 	log.Info("Licences are compliant")
+}
+
+func getGoModules() ([]string, error) {
+	cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", "all")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return nil, err
+	}
+
+	modulePaths := strings.Split(string(output), "\n")
+
+	var r []string
+	for _, str := range modulePaths {
+		str = strings.Trim(strings.TrimSpace(str), "\"")
+		if str != "" {
+			r = append(r, str)
+		}
+	}
+	return r, nil
 }
 
 func printAsJSON(results *compliance.Results) {
