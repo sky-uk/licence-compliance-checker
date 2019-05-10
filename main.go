@@ -51,6 +51,10 @@ func init() {
 func validateCompliance(_ *cobra.Command, args []string) {
 	setLogLevel(logLevel)
 
+	if len(overriddenModuleLicences) > 0 && len(overriddenLicences) > 0 {
+		logAndExit("Only use one of --override-module-licence (%d uses) and --override-licence (%d uses)", len(overriddenModuleLicences), len(overriddenLicences))
+	}
+
 	for module, licence := range overriddenModuleLicences {
 		cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", module)
 
