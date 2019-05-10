@@ -54,7 +54,7 @@ func validateCompliance(_ *cobra.Command, args []string) {
 	for module, licence := range overriddenModuleLicences {
 		cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", module)
 
-		out, err := cmd.CombinedOutput()
+		out, err := cmd.Output()
 		if err != nil {
 			logAndExit("Failed to list go module %s: output: %s, error: %s", module, out, err)
 		}
@@ -108,7 +108,7 @@ func validateCompliance(_ *cobra.Command, args []string) {
 
 func getGoModules() ([]string, error) {
 	cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", "all")
-	output, err := cmd.CombinedOutput()
+	output, err := cmd.Output()
 	if err != nil {
 		return nil, err
 	}
