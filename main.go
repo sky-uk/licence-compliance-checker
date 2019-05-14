@@ -44,7 +44,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&logLevel, "log-level", "L", "", "(output) should be one of: (none), debug, info, warn, error, fatal, panic. default (none)")
 	rootCmd.PersistentFlags().BoolVarP(&showComplianceAll, "show-compliance-all", "A", false, "(output) to show compliance checks as JSON regardless of outcome")
 	rootCmd.PersistentFlags().BoolVarP(&showComplianceErrors, "show-compliance-errors", "E", false, "(output) to show compliance checks as JSON only in case of errors")
-	rootCmd.PersistentFlags().BoolVarP(&checkGoModules, "check-go-modules", "", false, "check all go modules a project depends on")
+	rootCmd.PersistentFlags().BoolVarP(&checkGoModules, "check-go-modules", "", false, "check all go modules a project depends on. This replaces specifying multiple project directories as positional arguments.")
 	rootCmd.MarkPersistentFlagRequired("restricted-licence")
 }
 
