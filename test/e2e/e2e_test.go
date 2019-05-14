@@ -8,6 +8,7 @@ import (
 	"github.com/onsi/ginkgo/reporters"
 	. "github.com/onsi/gomega"
 	"github.com/sky-uk/licence-compliance-checker/pkg/compliance"
+	"go/build"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -197,6 +198,38 @@ var _ = Describe("License Compliance Checker", func() {
 			Expect(results.Restricted).To(HaveLen(4))
 			Expect(results.Restricted[0].Project).To(ContainSubstring("golang.org/x/net"))
 			Expect(results.Restricted[3].Project).To(ContainSubstring("github.com/sky-uk/licence-compliance-checker"))
+		})
+
+		// Note: this test will fail if project isn't running inside the GOPATH
+		It("should fail when run inside GOPATH and GO111MODULE=auto", func() {
+			cmd := exec.Command(commandPath, "-L", "info", "-A", "-r", "BSD-3-Clause", "--check-go-modules")
+			cmd.Dir = testModulePath
+			cmd.Env = os.Environ()
+			cmd.Env = append(cmd.Env, "GO111MODULE=auto")
+
+			output, err := cmd.CombinedOutput()
+			Expect(err).To(HaveOccurred())
+
+			Expect(string(output)).To(ContainSubstring("not using modules"))
+		})
+
+		It("should allow an overridden module using positional arguments", func() {
+			gopath := os.Getenv("GOPATH")
+			if gopath == "" {
+				gopath = build.Default.GOPATH
+			}
+
+			cmd := exec.Command(commandPath, "-A", "-r", "MIT", "-m", "golang.org/x/text=MIT", fmt.Sprintf("%s/%s", gopath, "pkg/mod/golang.org/x/text@v0.3.0"))
+			cmd.Dir = testModulePath
+			cmd.Env = os.Environ()
+			cmd.Env = append(cmd.Env, "GO111MODULE=on")
+
+			output, err := cmd.CombinedOutput()
+			Expect(err).To(HaveOccurred())
+
+			results := resultsFromJSON(string(output))
+			Expect(results.Restricted).To(HaveLen(1))
+			Expect(results.Restricted[0].Project).To(ContainSubstring("golang.org/x/text"))
 		})
 	})
 

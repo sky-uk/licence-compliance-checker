@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	log "github.com/sirupsen/logrus"
@@ -58,11 +59,17 @@ func validateCompliance(_ *cobra.Command, args []string) {
 	for module, licence := range overriddenModuleLicences {
 		cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", module)
 
-		out, err := cmd.Output()
+		var out bytes.Buffer
+		var stderr bytes.Buffer
+		cmd.Stdout = &out
+		cmd.Stderr = &stderr
+
+		err := cmd.Run()
 		if err != nil {
-			logAndExit("Failed to list go module %s: output: %s, error: %s", module, out, err)
+			logAndExit("Failed to find directory for go module %s: %s %s (try setting GO111MODULE=on)", module, stderr.String(), err)
 		}
-		pkgDir := strings.Trim(strings.TrimSpace(string(out)), "\"")
+
+		pkgDir := strings.Trim(strings.TrimSpace(out.String()), "\"")
 		overriddenLicences[pkgDir] = licence
 	}
 
@@ -82,6 +89,7 @@ func validateCompliance(_ *cobra.Command, args []string) {
 		if err != nil {
 			logAndExit("Failed to list go modules: %s", err)
 		}
+		log.Info("Found go modules:", args)
 	} else {
 		if len(args) == 0 {
 			logAndExit("requires at least 1 arg (received %d)", len(args))
@@ -112,12 +120,17 @@ func validateCompliance(_ *cobra.Command, args []string) {
 
 func getGoModules() ([]string, error) {
 	cmd := exec.Command("go", "list", "-m", "-f", "\"{{.Dir}}\"", "all")
-	output, err := cmd.Output()
+	var out bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &stderr
+
+	err := cmd.Run()
 	if err != nil {
-		return nil, err
+		logAndExit("Failed to list go modules: %s %s (try setting GO111MODULE=on)", stderr.String(), err)
 	}
 
-	modulePaths := strings.Split(string(output), "\n")
+	modulePaths := strings.Split(out.String(), "\n")
 
 	var r []string
 	for _, str := range modulePaths {
