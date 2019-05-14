@@ -19,8 +19,17 @@ go get github.com/sky-uk/licence-compliance-checker
 
 ## Usage
 
+With packages in a vendor directory:
+
 ```
 licence-compliance-checker -r LGPL -r GPL -r AGPL -o vendor/github.com/spf13/cobra=MIT vendor/github.com/spf13/cobra vendor/golang.org/x/crypto
+```
+
+With Go module installed packages (must be run outside of `$GOPATH`, or with
+`GO111MODULE=on`):
+
+```
+licence-compliance-checker -r LGPL -r GPL -r AGPL -m github.com/spf13/cobra=MIT --check-go-modules
 ```
 
 See the `licencecheck` target in the [Makefile](Makefile) for an example of how to use with dependencies managed by `go dep`
@@ -35,7 +44,9 @@ Input argument | Meaning
 ---------|---------
 --restricted-licence (-r) | The name of the licence to restrict. Repeat this flag to specify multiple values.
 --ignore-project (-i) | Project which licence will not be checked for compliance. Repeat this flag to specify multiple values.
---override-licence (-o) | Can be used to override the licence detected for a project - e.g. github.com/spf13/cobra=MIT. Repeat this flag to specify multiple values.
+--override-licence (-o) | Can be used to override the licence detected for a project directory - e.g. vendor/github.com/spf13/cobra=MIT. Repeat this flag to specify multiple values.
+--override-module-licence (-m) | Can be used to override the licence detected for a go module - e.g. github.com/spf13/cobra=MIT. Repeat this flag to specify multiple values.
+--check-go-modules | Check all go modules a project depends on. This replaces specifying multiple project directories as positional arguments.
 
 Output argument | Meaning 
 ---------|---------

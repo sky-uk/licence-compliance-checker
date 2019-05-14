@@ -1,5 +1,8 @@
 # Changes
 
+## 1.1.0
+- [Add --override-module-licence and --check-go-modules options](https://github.com/sky-uk/licence-compliance-checker/pull/19)
+
 ## 1.0.0
 - [Use go-license-detector upstream repo rather than fork](https://github.com/sky-uk/licence-compliance-checker/pull/16)
 
