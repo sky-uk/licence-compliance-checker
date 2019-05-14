@@ -12,7 +12,6 @@ setup :
 	go get -v golang.org/x/lint/golint golang.org/x/tools/cmd/goimports github.com/golang/dep/cmd/dep
 	go get -v github.com/onsi/ginkgo/ginkgo && cd $$GOPATH/src/github.com/onsi/ginkgo && git checkout 'v1.6.0' && go install github.com/onsi/ginkgo/ginkgo
 	dep ensure -v -vendor-only
-	cd test/e2e/testdata/go-module && GO111MODULE=on go build
 
 build: ensure-build-dir-exists
 	@echo "== build"
@@ -29,7 +28,7 @@ licencecheck:
 	set -e ;\
  	restricted=$$(paste -s -d ',' restricted-licences.txt) ;\
  	projects=$$(dep status -f='vendor/{{ .ProjectRoot }} ') ;\
- 	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted -m github.com/spf13/cobra=MIT $$projects ;
+ 	$(BUILD_DIR)/bin/licence-compliance-checker -L error -A -r $$restricted $$projects ;
 
 vet:
 	@echo "== vet"
@@ -47,7 +46,10 @@ ensure-build-dir-exists:
 ensure-test-report-dir-exists: ensure-build-dir-exists
 	mkdir -p $(junit_report_dir)
 
-test: ensure-test-report-dir-exists
+ensure-go-modules:
+	cd $(PROJECT_DIR)/test/e2e/testdata/go-module && GO111MODULE=on go mod download
+
+test: ensure-test-report-dir-exists ensure-go-modules
 	@echo "== test"
 	ginkgo -r --v --progress . pkg test/e2e -- -junit-report-dir $(junit_report_dir)
 

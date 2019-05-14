@@ -166,7 +166,7 @@ var _ = Describe("License Compliance Checker", func() {
 			Expect(err).To(HaveOccurred())
 
 			results := resultsFromJSON(string(output))
-			Expect(results.Restricted).To(HaveLen(2))
+			Expect(results.Restricted).To(HaveLen(5))
 			Expect(results.Restricted[0].Project).To(ContainSubstring("golang.org/x/crypto"))
 		})
 
@@ -194,8 +194,9 @@ var _ = Describe("License Compliance Checker", func() {
 			Expect(err).To(HaveOccurred())
 
 			results := resultsFromJSON(string(output))
-			Expect(results.Restricted).To(HaveLen(1))
-			Expect(results.Restricted[0].Project).To(ContainSubstring("github.com/sky-uk/licence-compliance-checker"))
+			Expect(results.Restricted).To(HaveLen(4))
+			Expect(results.Restricted[0].Project).To(ContainSubstring("golang.org/x/net"))
+			Expect(results.Restricted[3].Project).To(ContainSubstring("github.com/sky-uk/licence-compliance-checker"))
 		})
 	})
 
