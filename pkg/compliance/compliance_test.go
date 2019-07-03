@@ -139,13 +139,14 @@ var _ = Describe("compliance check", func() {
 		Expect(results.Restricted[2].Project).To(Equal("B1"))
 	})
 
-	It("should order licences with the same confidence level alphabetically", func() {
+	It("should order licences with highest confidence first then alphabetically", func() {
 		// given
 		licenceDetector := newFakeLicenceDetector(
-			aProjectWithLicence("C1", map[string]float32{"MPL2.0": 0.9, "MPL2.0-no-copyleft": 0.9}),
-			aProjectWithLicence("C2", map[string]float32{"MPL2.0-no-copyleft": 0.9, "MPL2.0": 0.9}),
-			aProjectWithLicence("R", map[string]float32{"MIT-other": 0.9, "MIT": 0.9}),
-			aProjectWithLicence("I", map[string]float32{"MPL2.0-no-copyleft": 0.9, "MPL2.0": 0.9}),
+			aProjectWithLicence("C1", map[string]float32{"MPL2.0": 0.9, "MPL2.0-no-copyleft": 0.9, "Y": 0.92, "Z": 0.92}),
+			aProjectWithLicence("C2", map[string]float32{"MPL2.0-no-copyleft": 0.9, "MPL2.0": 0.9, "Z": 0.89, "Y": 0.89}),
+			aProjectWithLicence("C3", map[string]float32{"Z": 0.91, "MIT-other": 0.9, "MIT": 0.9}),
+			aProjectWithLicence("R", map[string]float32{"Z": 0.89, "MIT-other": 0.9, "MIT": 0.9}),
+			aProjectWithLicence("I", map[string]float32{"MPL2.0-no-copyleft": 0.9, "MPL2.0": 0.9, "Z": 0.91}),
 		)
 
 		c := New(&Config{RestrictedLicences: []string{"MIT"}, IgnoredProjects: []string{"I"}}, licenceDetector)
@@ -155,11 +156,12 @@ var _ = Describe("compliance check", func() {
 
 		// then
 		Expect(err).ToNot(HaveOccurred())
-		Expect(results.Compliant).To(HaveLen(2))
-		Expect(results.Compliant).To(HaveProjectLicences("C1", "MPL2.0", "MPL2.0-no-copyleft"))
-		Expect(results.Compliant).To(HaveProjectLicences("C2", "MPL2.0", "MPL2.0-no-copyleft"))
-		Expect(results.Restricted).To(HaveProjectLicences("R", "MIT", "MIT-other"))
-		Expect(results.Ignored).To(HaveProjectLicences("I", "MPL2.0", "MPL2.0-no-copyleft"))
+		Expect(results.Compliant).To(HaveLen(3))
+		Expect(results.Compliant).To(HaveProjectLicences("C1", "Y", "Z", "MPL2.0", "MPL2.0-no-copyleft"))
+		Expect(results.Compliant).To(HaveProjectLicences("C2", "MPL2.0", "MPL2.0-no-copyleft", "Y", "Z"))
+		Expect(results.Compliant).To(HaveProjectLicences("C3", "Z", "MIT", "MIT-other"))
+		Expect(results.Restricted).To(HaveProjectLicences("R", "MIT", "MIT-other", "Z"))
+		Expect(results.Ignored).To(HaveProjectLicences("I", "Z", "MPL2.0", "MPL2.0-no-copyleft"))
 	})
 
 	Context("when a licence is overridden for a project", func() {
