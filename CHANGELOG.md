@@ -1,5 +1,8 @@
 # Changes
 
+## 1.1.1
+- [BUGFIX] [Ordering of licences with same confidence level is non-deterministic](https://github.com/sky-uk/licence-compliance-checker/pull/21)
+
 ## 1.1.0
 - [Add --override-module-licence and --check-go-modules options](https://github.com/sky-uk/licence-compliance-checker/pull/19)
 
