@@ -5,3 +5,11 @@ go:
   - 1.12.x
 
 script: make travis
+
+# This applies to `push` types only, not pull request
+# Travis will trigger `push` builds on master or tag to avoid building branches twice for pull requests - see https://docs.travis-ci.com/user/pull-requests/#double-builds-on-pull-requests
+# The tag to build should follow semantic versioning
+branches:
+  only:
+    - master
+    - /^v([0-9]+)\.([0-9]+)\.([0-9]+).*$/
