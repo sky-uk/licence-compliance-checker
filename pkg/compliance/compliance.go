@@ -45,6 +45,8 @@ func (c *Compliance) Validate(projectPaths []string) (*Results, error) {
 	})
 
 	for _, detectionResult := range detectionResults {
+		c.sortMatchesByConfidenceThenLicence(detectionResult.Matches)
+
 		if c.projectIgnored(detectionResult) {
 			complianceResults.Ignored = append(complianceResults.Ignored, detectionResult)
 			continue
@@ -72,10 +74,6 @@ func (c *Compliance) Validate(projectPaths []string) (*Results, error) {
 }
 
 func (c *Compliance) restrictedLicence(detectionResult detection.Result) bool {
-	sort.Slice(detectionResult.Matches, func(i, j int) bool {
-		return detectionResult.Matches[i].Confidence > detectionResult.Matches[j].Confidence
-	})
-
 	mostProbableLicence := detectionResult.Matches[0].Licence
 	for _, restrictedLicence := range c.config.RestrictedLicences {
 		if mostProbableLicence == restrictedLicence {
@@ -93,4 +91,13 @@ func (c *Compliance) projectIgnored(detectionResult detection.Result) bool {
 		}
 	}
 	return false
+}
+
+func (c *Compliance) sortMatchesByConfidenceThenLicence(matches []detection.LicenceMatch) {
+	sort.Slice(matches, func(i, j int) bool {
+		if matches[i].Confidence == matches[j].Confidence {
+			return matches[i].Licence < matches[j].Licence
+		}
+		return matches[i].Confidence > matches[j].Confidence
+	})
 }
